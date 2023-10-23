@@ -1,3 +1,3 @@
 # Notepad
 
-This is a a simple Notepad project made using react. It is also an online HTML editor and you can input html codes on the notepad and you can also view the output of your html code.
+This is a simple Notepad project created with React, specifically designed to serve as an online HTML editor. You can input HTML code into the notepad and instantly preview the live output, simplifying your web development process. This site proves invaluable when you need to test HTML codes or CSS without the hassle of creating separate files.
