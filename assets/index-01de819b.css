@@ -1,1 +1,133 @@
-@import"https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap";*{padding:0;margin:0}#App{width:100vw;height:100vh;background-color:#1a1a1a;display:flex;flex-direction:column;justify-content:center;align-items:center}#con{width:100%;height:100%;display:flex;flex-direction:row;justify-content:center;align-items:center}#edit{width:90%;height:90%;display:flex;flex-direction:column;justify-content:center;align-items:center;margin:0 0 2vw 1vw}#prev{width:50vw;height:90%;display:none;flex-direction:column;justify-content:center;align-items:center;margin:0 0 2vw 1vw}#editor{width:100%;height:90%;border:none;resize:none;color:#fff;background-color:#0c2366;background-image:linear-gradient(transparent 23px,#040a1f 23px,#040a1f 24px,transparent 24px);background-size:100% 24px;background-repeat:repeat;line-height:24px}#editor:focus{outline:none}#caption{width:100%;height:10%;background-color:#243975;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:1vw 1vw 0 0}#preview{width:50vw;height:90%;background-color:#fff;color:#1a1a1a;overflow:scroll}#charnum{width:100%;height:auto;text-align:right;color:#fff;background-color:#0c2366;font-size:1.3vw}#btnCon{width:100%;height:auto;display:flex;justify-content:right;align-items:center;padding:1vw 0}#run{background-color:#edf50a;border:none;color:#1a1a1a;font-weight:700;padding:.3vw 1vw;border-radius:.3vw;cursor:pointer}footer{position:absolute;color:#fff;bottom:0;font-family:"PT Serif"}
+/* Reset and Base Styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+  /* Light theme variables (default) */
+  --bg-color: #f4f4f4;
+  --text-color: #333;
+  --primary-color: #007bff;
+  --card-bg: #fff;
+  --header-footer-bg: #e9ecef;
+  --button-bg: #007bff;
+  --button-text: #fff;
+  --border-color: #ddd;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Dark theme variables */
+body.dark-mode {
+  --bg-color: #333;
+  --text-color: #f4f4f4;
+  --primary-color: #61dafb; /* Lighter blue for dark mode */
+  --card-bg: #444;
+  --header-footer-bg: #222;
+  --button-bg: #61dafb;
+  --button-text: #333;
+  --border-color: #555;
+  --shadow-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Header Styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--header-footer-bg);
+  border-bottom: 1px solid var(--border-color);
+}
+
+header h1 {
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.search-container {
+  flex-grow: 1;
+  margin: 0 1rem;
+  max-width: 400px; /* Limit search bar width */
+}
+
+#search-bar {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--card-bg); /* Use card background for input */
+  color: var(--text-color);
+}
+
+#theme-toggle {
+  padding: 0.5rem 1rem;
+  background-color: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#theme-toggle:hover {
+  opacity: 0.9;
+}
+
+/* Main Content Area */
+main#recipe-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 1200px; /* Limit overall width */
+  margin: 0 auto; /* Center the grid */
+}
+
+/* Recipe Card Styles */
+.recipe-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: box-shadow 0.3s;
+}
+
+.recipe-card:hover {
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.recipe-card h2 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: var(--primary-color);
+}
+
+.recipe-card p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.recipe-card a {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--button-bg); /* Use button color for links */
+  font-weight: bold;
+}
+
+.recipe-card a:hover {
+  text-decoration: underline;
+}
+
+/* Footer Styles */
+footer {
+  padding: 1rem 2rem;
+  text-align: center;
+  background-color: var(--header-footer-bg);
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem; /* Add some space above the footer */
+  color: var(--text-color);
+}

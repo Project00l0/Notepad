@@ -8,7 +8,32 @@
     <link rel="stylesheet" href="./assets/index-01de819b.css">
   </head>
   <body>
-    <div id="root"></div>
-    
+    <header>
+      <h1>Recipe Book</h1>
+      <div class="search-container">
+        <input type="search" id="search-bar" placeholder="Search recipes...">
+      </div>
+      <button id="theme-toggle">Toggle Theme</button>
+    </header>
+
+    <main id="recipe-display">
+      <article class="recipe-card">
+        <h2>Recipe Title 1</h2>
+        <img src="" alt="Recipe 1 Placeholder" style="display: none;"> <!-- Placeholder, hidden for now -->
+        <p>Short description for Recipe 1.</p>
+        <a href="#">View Recipe</a>
+      </article>
+      <article class="recipe-card">
+        <h2>Recipe Title 2</h2>
+        <img src="" alt="Recipe 2 Placeholder" style="display: none;"> <!-- Placeholder, hidden for now -->
+        <p>Short description for Recipe 2.</p>
+        <a href="#">View Recipe</a>
+      </article>
+    </main>
+
+    <footer>
+      © 2023 Recipe Book
+    </footer>
+
   </body>
 </html>
