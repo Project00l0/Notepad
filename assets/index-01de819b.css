@@ -1,1 +1,343 @@
-@import"https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap";*{padding:0;margin:0}#App{width:100vw;height:100vh;background-color:#1a1a1a;display:flex;flex-direction:column;justify-content:center;align-items:center}#con{width:100%;height:100%;display:flex;flex-direction:row;justify-content:center;align-items:center}#edit{width:90%;height:90%;display:flex;flex-direction:column;justify-content:center;align-items:center;margin:0 0 2vw 1vw}#prev{width:50vw;height:90%;display:none;flex-direction:column;justify-content:center;align-items:center;margin:0 0 2vw 1vw}#editor{width:100%;height:90%;border:none;resize:none;color:#fff;background-color:#0c2366;background-image:linear-gradient(transparent 23px,#040a1f 23px,#040a1f 24px,transparent 24px);background-size:100% 24px;background-repeat:repeat;line-height:24px}#editor:focus{outline:none}#caption{width:100%;height:10%;background-color:#243975;color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:1vw 1vw 0 0}#preview{width:50vw;height:90%;background-color:#fff;color:#1a1a1a;overflow:scroll}#charnum{width:100%;height:auto;text-align:right;color:#fff;background-color:#0c2366;font-size:1.3vw}#btnCon{width:100%;height:auto;display:flex;justify-content:right;align-items:center;padding:1vw 0}#run{background-color:#edf50a;border:none;color:#1a1a1a;font-weight:700;padding:.3vw 1vw;border-radius:.3vw;cursor:pointer}footer{position:absolute;color:#fff;bottom:0;font-family:"PT Serif"}
+/* Import font */
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap");
+
+/* Basic Reset */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box; /* Added for better layout control */
+}
+
+/* CSS Variables */
+:root {
+  --background-light: #ffffff;
+  --text-light: #1a1a1a;
+  --primary-light: #0c2366;
+  --secondary-light: #243975;
+  --accent-light: #edf50a;
+  --editor-line-light: #cccccc;
+
+  --background-dark: #1a1a1a;
+  --text-dark: #ffffff;
+  --primary-dark: #0c2366;
+  --secondary-dark: #243975;
+  --accent-dark: #edf50a;
+  --editor-line-dark: #040a1f;
+}
+
+body {
+  font-family: sans-serif; /* Added a default font */
+  background-color: var(--background-light);
+  color: var(--text-light);
+  min-height: 100vh; /* Ensure body takes full height */
+  display: flex;
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically initially */
+  position: relative; /* Needed for absolute positioning of theme toggle */
+  transition: background-color 0.3s, color 0.3s; /* Smooth theme transition */
+}
+
+body.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+/* Theme Toggle Button */
+#theme-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: var(--secondary-light);
+  color: var(--background-light);
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode #theme-toggle {
+  background-color: var(--secondary-dark);
+  color: var(--background-dark); /* Use dark background color for text */
+}
+
+/* API Key Container */
+#api-key-container {
+  display: flex; /* Use flexbox for alignment */
+  flex-direction: column; /* Stack input and button vertically */
+  align-items: center; /* Center items horizontally */
+  margin-bottom: 20px; /* Add some space below */
+  padding: 20px;
+  border: 1px solid var(--text-light); /* Use theme color */
+  border-radius: 8px;
+  background-color: var(--background-light); /* Ensure background matches */
+}
+
+body.dark-mode #api-key-container {
+  border-color: var(--text-dark);
+  background-color: var(--background-dark);
+}
+
+#api-key-input {
+  padding: 0.5rem;
+  margin-bottom: 10px; /* Space between input and button */
+  border: 1px solid var(--text-light);
+  border-radius: 4px;
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+body.dark-mode #api-key-input {
+  border-color: var(--text-dark);
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+#api-key-submit {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: var(--primary-light);
+  color: var(--background-light);
+  border: none;
+  border-radius: 4px;
+}
+
+body.dark-mode #api-key-submit {
+  background-color: var(--primary-dark);
+  color: var(--background-dark); /* Use dark background for text */
+}
+
+/* Search Container (Initially Hidden) */
+#search-container {
+  display: none; /* Hide initially */
+  margin-bottom: 20px; /* Space below search */
+  /* Add other styles as needed when shown */
+  padding: 10px;
+  border: 1px solid var(--text-light);
+  border-radius: 8px;
+}
+
+body.dark-mode #search-container {
+   border-color: var(--text-dark);
+}
+
+
+#search-input {
+  padding: 0.5rem;
+  margin-right: 5px; /* Space between input and button */
+  border: 1px solid var(--text-light);
+  border-radius: 4px;
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+body.dark-mode #search-input {
+  border-color: var(--text-dark);
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+
+#search-submit {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  background-color: var(--primary-light);
+  color: var(--background-light);
+  border: none;
+  border-radius: 4px;
+}
+
+body.dark-mode #search-submit {
+  background-color: var(--primary-dark);
+  color: var(--background-dark);
+}
+
+
+/* Root Container (Initially Hidden) */
+#root {
+  display: none; /* Hide initially */
+  width: 100%; /* Take full width when shown */
+  /* Add other styles as needed when shown */
+}
+
+
+/* --- Existing Styles (Refactored to use CSS Variables) --- */
+
+#App {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--background-dark); /* Assuming #App is part of the dark theme view? */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* If #App should follow the body theme */
+/*
+body #App {
+  background-color: var(--background-light);
+}
+body.dark-mode #App {
+   background-color: var(--background-dark);
+}
+*/
+
+
+#con {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#edit {
+  width: 90%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 2vw 1vw;
+}
+
+#prev {
+  width: 50vw;
+  height: 90%;
+  display: none; /* Kept original display: none */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 2vw 1vw;
+}
+
+#editor {
+  width: 100%;
+  height: 90%;
+  border: none;
+  resize: none;
+  color: var(--text-dark); /* Original: #fff */
+  background-color: var(--primary-dark); /* Original: #0c2366 */
+  background-image: linear-gradient(transparent 23px, var(--editor-line-dark) 23px, var(--editor-line-dark) 24px, transparent 24px); /* Original line: #040a1f */
+  background-size: 100% 24px;
+  background-repeat: repeat;
+  line-height: 24px;
+}
+
+body.dark-mode #editor {
+  color: var(--text-dark);
+  background-color: var(--primary-dark);
+  background-image: linear-gradient(transparent 23px, var(--editor-line-dark) 23px, var(--editor-line-dark) 24px, transparent 24px);
+}
+
+body:not(.dark-mode) #editor { /* Light mode editor styles */
+  color: var(--text-light);
+  background-color: var(--background-light); /* Use light background */
+   background-image: linear-gradient(transparent 23px, var(--editor-line-light) 23px, var(--editor-line-light) 24px, transparent 24px); /* Lighter line */
+   border: 1px solid var(--text-light); /* Add border for visibility */
+}
+
+
+#editor:focus {
+  outline: none;
+}
+
+#caption {
+  width: 100%;
+  height: 10%;
+  background-color: var(--secondary-dark); /* Original: #243975 */
+  color: var(--text-dark); /* Original: #fff */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1vw 1vw 0 0;
+}
+
+body:not(.dark-mode) #caption {
+  background-color: var(--secondary-light);
+  color: var(--text-light);
+}
+
+body.dark-mode #caption {
+  background-color: var(--secondary-dark);
+  color: var(--text-dark);
+}
+
+#preview {
+  width: 50vw;
+  height: 90%;
+  background-color: var(--background-light); /* Original: #fff */
+  color: var(--text-light); /* Original: #1a1a1a */
+  overflow: scroll;
+  border: 1px solid var(--text-light); /* Add border for visibility */
+}
+
+body.dark-mode #preview {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+   border: 1px solid var(--text-dark);
+}
+
+
+#charnum {
+  width: 100%;
+  height: auto;
+  text-align: right;
+  color: var(--text-dark); /* Original: #fff */
+  background-color: var(--primary-dark); /* Original: #0c2366 */
+  font-size: 1.3vw;
+  padding: 0.2rem 0.5rem; /* Added padding */
+}
+
+body:not(.dark-mode) #charnum {
+  color: var(--text-light);
+  background-color: var(--primary-light);
+}
+
+body.dark-mode #charnum {
+  color: var(--text-dark);
+  background-color: var(--primary-dark);
+}
+
+
+#btnCon {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  padding: 1vw 0;
+}
+
+#run {
+  background-color: var(--accent-light); /* Original: #edf50a */
+  border: none;
+  color: var(--text-light); /* Original: #1a1a1a */
+  font-weight: 700;
+  padding: .3vw 1vw;
+  border-radius: .3vw;
+  cursor: pointer;
+}
+
+/* Keep accent color consistent for now, adjust if needed */
+/* body.dark-mode #run {
+  background-color: var(--accent-dark);
+  color: var(--text-dark);
+} */
+
+
+footer {
+  /* position: absolute; */ /* Removed absolute positioning to allow flex centering */
+  color: var(--text-light);
+  /* bottom: 0; */ /* Removed */
+  font-family: "PT Serif";
+  margin-top: 20px; /* Add some space above footer */
+}
+
+body.dark-mode footer {
+  color: var(--text-dark);
+}
