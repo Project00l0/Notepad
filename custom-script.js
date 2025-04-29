@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    // TODO: FIX - Storing API keys client-side (e.g., in window) is insecure if the key is sensitive. Consider server-side handling.
     // Store the API key globally (consider more secure storage if sensitive)
     window.apiKey = apiKey;
     console.log('API Key stored.'); // For debugging
@@ -46,6 +47,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Show search section
     searchContainer.style.display = 'block'; // Or 'flex', 'grid' depending on its CSS
+
+    // TODO: FIX - Implement search functionality here.
+    // TODO: FIX - Remember to sanitize user input from #search-input before using it in API calls or rendering to prevent XSS.
+    // TODO: FIX - Ensure API calls using the key are made securely (HTTPS) and consider rate limiting/abuse if key is public.
 
     // Optional: Show the main app content (#root) now
     // const rootElement = document.querySelector('#root');
@@ -63,3 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // }
 
 });
+
+// --- General Notes & Security Considerations ---
+// NOTE: The original React app (in assets/index-*.js) uses DOMPurify to sanitize HTML preview, which is important for XSS prevention.
+// TODO: FIX - Ensure third-party libraries (React, marked, DOMPurify) are kept up-to-date to mitigate potential vulnerabilities.
